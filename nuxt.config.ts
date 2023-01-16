@@ -5,6 +5,11 @@ export default defineNuxtConfig({
       '@pinia/nuxt',
       '@nuxtjs/tailwindcss',
     ],
+    runtimeConfig: {
+      public: {
+        baseURL: process.env.BASE_URL || 'https://wehatbazar.thecell.tech/api',
+      },
+    },  
     app: {
       head: {
         charset: 'utf-16',

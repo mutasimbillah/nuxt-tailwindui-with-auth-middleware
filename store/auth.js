@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const authStore = defineStore({
     id:'auth',
     state: () => ({
-        token: 'abcs'
+        token: ''
     }),
     actions:{
         //
@@ -12,7 +12,7 @@ export const authStore = defineStore({
         },
         //
         setToken(jwt){
-            token = jwt;
+            this.token = jwt;
         }
     }
 });

@@ -8,11 +8,11 @@
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                <form class="space-y-6" action="#" method="POST">
+                <form class="space-y-6" @submit.prevent="handleSubmit" method="POST" id="login">
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
                         <div class="mt-1">
-                            <input id="email" name="email" type="email" autocomplete="email" required
+                            <input id="phone" name="phone" type="text" autocomplete="phone" required
                                 class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
                         </div>
                     </div>
@@ -48,3 +48,34 @@
         </div>
     </div>
 </template>
+<script setup>
+import { authStore } from '~~/store/auth';
+
+
+async function handleSubmit() {
+    const config = useRuntimeConfig();
+    const store = authStore();
+    const loginForm = document.getElementById('login');
+    let formData = new FormData(loginForm);
+    const data = {};
+    // need to convert it before using not with XMLHttpRequest
+    for (let [key, val] of formData.entries()) {
+        Object.assign(data, { [key]: val })
+    }
+    //console.log(data);
+    const { data: loginApi, error } = await useFetch(
+        '/merchant-login',
+        {
+            baseURL: config.public.baseURL,
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            method: 'post',
+            params: data
+        }
+    );
+    //console.log(error.value.data);
+    const loginData = loginApi.value.data;
+    console.log(loginData.access_token);
+    store.setToken(loginData.access_token);
+    navigateTo('/');
+}
+</script>
