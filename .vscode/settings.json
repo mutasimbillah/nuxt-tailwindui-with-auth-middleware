@@ -1,0 +1,18 @@
+{
+    "files.autoSave": "onFocusChange",
+    "editor.formatOnSave": true,
+    "editor.fontSize": 14,
+    "editor.lineHeight": 30,
+    "workbench.editor.labelFormat": "short",
+    "breadcrumbs.enabled": true,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "cSpell.words": [
+        "axios",
+        "Nuxt",
+        "nuxtjs",
+        "pinia",
+        "tailwindcss",
+        "vuetify"
+    ],
+}
